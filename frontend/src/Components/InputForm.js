@@ -1,42 +1,45 @@
 import React, { uesState } from 'react'; 
-import { getPrediction } from '../api'; 
+import { classifyWeather, regressWeather } from '../api'; 
   
-const InputForm = ({ setPrediction }) => {
+const InputForm = ({ setError, setResult }) => {
     const [temperature, setTemperature] = useState('');
     const [humidity, setHumidity] = useState('');
-    const [error, setError] = useState('');
   
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (!temperature || !humidity) {
-        setError('Please provide both temperature and humidity.');
-        return;
+    const handleClassify = async () => { 
+      try { 
+        const prediction = await classifyWeather({ temperature, humidity }); 
+        setResult(`Classification: ${prediction}`);
+      } catch (err) { 
+        setError(err);
       }
-      try {
-        const prediction = await getPrediction({ temperature, humidity });
-        setPrediction(prediction);
-      } catch (error) {
-        setError(error);
+    }; 
+
+    const handleRegress = async () => { 
+      try { 
+        const prediction = await regressWeather({ temperature, humidity }); 
+        setResult(`Regression: ${prediction}`);  
+      } catch (err) { 
+        setError(err);
       }
     };
   
     return (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          placeholder="Temperature"
-          value={temperature}
-          onChange={(e) => setTemperature(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Humidity"
-          value={humidity}
-          onChange={(e) => setHumidity(e.target.value)}
-        />
-        <button type="submit">Get Prediction</button>
-        {error && <div className="error">{error}</div>}
-      </form>
+      <div> 
+        <input  
+        type="number" 
+        placeholder="Temperature"  
+        value={temperature}
+        onChange={ (e) => setTemperature(e.target.value)}
+        /> 
+        <input   
+        type="number" 
+        placeholder="Humidity" 
+        value={humidity} 
+        onChange={(e) => setHumidity(e.target.value)}
+        /> 
+        <button onClick={handleClassify}>Classify</button> 
+        <button onClick={handleRegress}>Regress</button>
+      </div>
     );
   };
   

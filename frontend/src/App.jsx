@@ -2,9 +2,9 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css' 
-import InputForm from './Components/InputForm.js'; 
-import ErrorAlert from './Components/ErrorAlert.js'; 
-import DisplayResults from './Components/DisplayResults.js'; 
+import InputForm from './Components/InputForm.jsx'; 
+import ErrorAlert from './Components/ErrorAlert.jsx'; 
+import DisplayResults from './Components/DisplayResults.jsx'; 
 import { classifyWeather, regressWeather} from 'api.js';
 
 function App() {

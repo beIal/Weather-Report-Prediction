@@ -3,7 +3,7 @@ import pickle
 def load_model(): 
     # Updates paths to find point to the picke files 
     classifcation_model_path = r"C:\Users\cucum\Downloads\COS30049\assignment 2\classification_model.pkl" 
-    regression_model_path = r"C:\Users\cucum\Downloads\COS30049\assignment 2\regression_model.pkl"   
+    regression_model_path = r"C:\Users\cucum\Downloads\COS30049\assignment 2\regression_model.pk1"  
     
     # Load Models
     classification_model = pickle.load(open(classifcation_model_path, 'rb')) 

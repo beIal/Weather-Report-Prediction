@@ -5,7 +5,7 @@ import './App.css'
 import InputForm from './Components/InputForm.jsx'; 
 import ErrorAlert from './Components/ErrorAlert.jsx'; 
 import DisplayResults from './Components/DisplayResults.jsx'; 
-import { classifyWeather, regressWeather} from 'api.js';
+import { classifyWeather, regressWeather} from './api.js';
 
 function App() {
   const [count, setCount] = useState(0); 

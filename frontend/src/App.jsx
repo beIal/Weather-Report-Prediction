@@ -50,7 +50,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>  
-      
+
       {/* Weather Prediction Components */}
       <InputForm onSubmit={handlePrediction} />
       <ErrorAlert message={error} onClose={() => setError('')} />
@@ -59,4 +59,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

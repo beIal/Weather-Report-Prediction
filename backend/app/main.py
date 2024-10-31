@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException 
 from pydantic import BaseModel 
-from model import load_model, predict
+from .model import load_model, predict
 import pandas as pd
 
 app = FastAPI() 

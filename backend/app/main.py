@@ -1,32 +1,36 @@
-from fastapi import FastAPI, HTTPException 
-from pydantic import BaseModel 
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from .model import load_model, predict
 import pandas as pd
 
-app = FastAPI() 
+app = FastAPI()
 
-model = load_model()  
-
+# Load models
 classification_model, regression_model = load_model()
 
-class predictionInput(BaseModel): 
-    temperature: float 
+# Define input data schema
+class PredictionInput(BaseModel):
+    temperature: float
     humidity: float
- 
+
 @app.post("/predict/classification")
-async def classify(input_data, predictionInput): 
-    try:  
+async def classify(input_data: PredictionInput):
+    try:
+        # Prepare data for prediction
         data = [[input_data.temperature, input_data.humidity]]
-        prediction = predict(classification_model, input_data, model_type='classification')
+        # Call the predict function with the classification model
+        prediction = predict(classification_model, data, model_type='classification')
         return {"prediction": prediction}
-    except Exception as e: 
-        raise HTTPException(status_code=500, detail=str(e)) 
-    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/predict/regression")
-async def classify(input_data, predictionInput): 
-    try:  
+async def regress(input_data: PredictionInput):
+    try:
+        # Prepare data for prediction
         data = [[input_data.temperature, input_data.humidity]]
-        prediction = predict(classification_model, input_data, model_type='regression')
+        # Call the predict function with the regression model
+        prediction = predict(regression_model, data, model_type='regression')
         return {"prediction": prediction}
-    except Exception as e: 
+    except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

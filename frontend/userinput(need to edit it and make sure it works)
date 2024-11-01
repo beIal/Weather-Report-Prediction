@@ -1,0 +1,48 @@
+// src/components/WeatherForm.js
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const WeatherForm = ({ onFetchWeather }) => {
+  const [location, setLocation] = useState('');
+  const [date, setDate] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!location || !date) {
+      setError('Please enter both location and date');
+      return;
+    }
+
+    setError('');
+    try {
+      const response = await axios.post('http://localhost:8000/predict', { location, date });
+      onFetchWeather(response.data);
+    } catch (err) {
+      setError('Failed to fetch weather data. Please try again.');
+    }
+  };
+
+  return (
+    <div>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="Enter location"
+        />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+        <button type="submit">Get Weather</button>
+      </form>
+    </div>
+  );
+};
+
+export default WeatherForm;

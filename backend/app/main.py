@@ -13,6 +13,10 @@ class PredictionInput(BaseModel):
     temperature: float
     humidity: float
 
+@app.post("/") 
+async def read_root(): 
+    return {"Message" : "Welcome to the Weather Prediction API!"}
+
 @app.post("/predict/classification")
 async def classify(input_data: PredictionInput):
     try:

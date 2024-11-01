@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-const APP_URL = 'http://localhost:8000'; 
+const API_URL = 'http://localhost:8000'; 
 
 export const classifyWeather = async (inputData) => { 
     try { 
